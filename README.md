@@ -1,0 +1,1 @@
+# rollup-plugin-dynamic-import-variables
