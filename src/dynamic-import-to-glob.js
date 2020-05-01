@@ -1,12 +1,12 @@
 const path = require('path');
 
-class VariablyDynamicImportError extends Error {}
+class VariableDynamicImportError extends Error {}
 
 const example = 'For example: import(`./foo/${bar}.js`).';
 
 function sanitizeString(str) {
   if (str.includes('*')) {
-    throw new VariablyDynamicImportError(
+    throw new VariableDynamicImportError(
       'A dynamic import cannot contain * characters.'
     );
   }
@@ -28,7 +28,7 @@ function templateLiteralToGlob(node) {
 
 function binaryExpressionToGlob(node) {
   if (node.operator !== '+') {
-    throw new VariablyDynamicImportError(
+    throw new VariableDynamicImportError(
       `${node.operator} operator is not supported.`
     );
   }
@@ -48,7 +48,7 @@ function expressionToGlob(node) {
       return sanitizeString(node.value);
     }
     default:
-      throw new VariablyDynamicImportError(
+      throw new VariableDynamicImportError(
         `Unsupported expression, found node type ${node.type}.`
       );
   }
@@ -62,28 +62,28 @@ function dynamicImportToGlob(node, sourceString) {
   glob = glob.replace(/\*\*/g, '*');
 
   if (glob.startsWith('*')) {
-    throw new VariablyDynamicImportError(
+    throw new VariableDynamicImportError(
       `invalid import "${sourceString}". It cannot be statically analyzed. Variable dynamic imports must start with ./ and be limited to a specific directory. ` +
         example
     );
   }
 
   if (glob.startsWith('/')) {
-    throw new VariablyDynamicImportError(
+    throw new VariableDynamicImportError(
       `invalid import "${sourceString}". Variable absolute imports are not supported, imports must start with ./ in the static part of the import. ` +
         example
     );
   }
 
   if (!glob.startsWith('./') && !glob.startsWith('../')) {
-    throw new VariablyDynamicImportError(
+    throw new VariableDynamicImportError(
       `invalid import "${sourceString}". Variable bare imports are not supported, imports must start with ./ in the static part of the import. ` +
         example
     );
   }
 
   if (glob.startsWith('./*.')) {
-    throw new VariablyDynamicImportError(
+    throw new VariableDynamicImportError(
       `invalid import "${sourceString}". Variable imports cannot import their own directory, ` +
         'place imports in a separate directory or make the import filename more specific. ' +
         example
@@ -91,7 +91,7 @@ function dynamicImportToGlob(node, sourceString) {
   }
 
   if (path.extname(glob) === '') {
-    throw new VariablyDynamicImportError(
+    throw new VariableDynamicImportError(
       `invalid import "${sourceString}". A file extension must be included in the static part of the import. ` +
         example
     );
@@ -100,4 +100,4 @@ function dynamicImportToGlob(node, sourceString) {
   return glob;
 }
 
-module.exports = { dynamicImportToGlob, VariablyDynamicImportError };
+module.exports = { dynamicImportToGlob, VariableDynamicImportError };

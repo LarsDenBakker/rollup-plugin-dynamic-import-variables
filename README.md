@@ -78,7 +78,7 @@ Some example patterns and the glob they produce:
 ```
 
 ```js
-`./modules-${name}/index.js` -> './modules-*/index.js.js'
+`./modules-${name}/index.js` -> './modules-*/index.js'
 ```
 
 ```js

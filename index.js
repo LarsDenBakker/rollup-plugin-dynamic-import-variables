@@ -5,7 +5,7 @@ const globby = require('globby');
 const { createFilter } = require('@rollup/pluginutils');
 const {
   dynamicImportToGlob,
-  VariablyDynamicImportError,
+  VariableDynamicImportError,
 } = require('./src/dynamic-import-to-glob');
 
 function dynamicImportVariables({ include, exclude, warnOnError } = {}) {
@@ -68,7 +68,7 @@ function dynamicImportVariables({ include, exclude, warnOnError } = {}) {
               `__variableDynamicImportRuntime${dynamicImportIndex}__`
             );
           } catch (error) {
-            if (error instanceof VariablyDynamicImportError) {
+            if (error instanceof VariableDynamicImportError) {
               // TODO: line number
               if (warnOnError) {
                 this.warn(error);
