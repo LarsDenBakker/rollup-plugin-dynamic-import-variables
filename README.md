@@ -6,7 +6,7 @@ Turns:
 
 ```js
 function importLocale(locale) {
-  return import('./locales/${locale}.js');
+  return import(`./locales/${locale}.js`);
 }
 ```
 
@@ -27,7 +27,7 @@ function __variableDynamicImportRuntime__(path) {
 }
 
 function importLocale(locale) {
-  return __variableDynamicImportRuntime__('./locales/${locale}.js');
+  return __variableDynamicImportRuntime__(`./locales/${locale}.js`);
 }
 ```
 
