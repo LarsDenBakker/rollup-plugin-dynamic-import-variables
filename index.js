@@ -38,7 +38,7 @@ function dynamicImportVariables({ include, exclude, warnOnError } = {}) {
             );
 
             if (!glob) {
-              // this was not a variably dynamic import
+              // this was not a variable dynamic import
               return;
             }
 
@@ -60,7 +60,7 @@ function dynamicImportVariables({ include, exclude, warnOnError } = {}) {
    }
  }\n\n`
             );
-            // call the runtime function instead of doing a dynamic import, the import specific will
+            // call the runtime function instead of doing a dynamic import, the import specifier will
             // be evaluated at runtime and the correct import will be returned by the injected function
             ms.overwrite(
               node.start,

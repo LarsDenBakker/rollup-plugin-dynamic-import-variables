@@ -1,6 +1,6 @@
 # Rollup plugin dynamic import variables
 
-Plugin to support variables in dynamic imports in rollup.
+Plugin to support variables in dynamic imports in Rollup.
 
 Turns:
 
@@ -57,11 +57,11 @@ Files to exclude in this plugin (default none).
 
 #### warnOnError
 
-By default the plugin quits the build process when it encounters an error. If you set this option to true, it will throw a warning instead and leave the code untouched.
+By default, the plugin quits the build process when it encounters an error. If you set this option to true, it will throw a warning instead and leave the code untouched.
 
 ## How it works
 
-When a dynamic import contains a concatenated string, the variables of the string are replaced with a glob pattern. This glob pattern is evaluated during the build, and any files found are to the rollup bundle. At runtime the correct import is returned for the full concatenated string.
+When a dynamic import contains a concatenated string, the variables of the string are replaced with a glob pattern. This glob pattern is evaluated during the build, and any files found are added to the rollup bundle. At runtime, the correct import is returned for the full concatenated string.
 
 Some example patterns and the glob they produce:
 
@@ -99,7 +99,7 @@ Some example patterns and the glob they produce:
 
 ## Limitations
 
-In order to know what to inject in the rollup bundle, we have to be able to do some static analysis on the code and make some assumptions about the possible imports. For example if you use just a variable you could in theory import anything from your entire file system.
+To know what to inject in the rollup bundle, we have to be able to do some static analysis on the code and make some assumptions about the possible imports. For example, if you use just a variable you could in theory import anything from your entire file system.
 
 ```js
 function importModule(path) {
@@ -108,7 +108,7 @@ function importModule(path) {
 }
 ```
 
-To help static analysis, and to avoid possible footguns, we are limited to a couple of rules:
+To help static analysis, and to avoid possible foot guns, we are limited to a couple of rules:
 
 ### Imports must start with `./` or `../`.
 
@@ -124,7 +124,7 @@ import(`some-library/${bar}.js`);
 
 ### Imports must end with a file extension
 
-A folder may contain files you don't intend to import. We therefore require imports to end with a file extension in the static parts of the import.
+A folder may contain files you don't intend to import. We, therefore, require imports to end with a file extension in the static parts of the import.
 
 ```js
 // Not allowed
