@@ -56,7 +56,7 @@ function dynamicImportVariables({ include, exclude, warnOnError } = {}) {
               `function __variableDynamicImportRuntime${dynamicImportIndex}__(path) {
    switch (path) {
   ${paths.map((p) => `   case '${p}': return import('${p}');`).join('\n  ')}
-     default: throw new Error("Unknown variable dynamic import: " + path);
+     default: return Promise.reject(new Error("Unknown variable dynamic import: " + path));
    }
  }\n\n`
             );
