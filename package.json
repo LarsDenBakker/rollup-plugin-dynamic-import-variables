@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-dynamic-import-variables",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Rollup plugin for resolving dynamic imports containing variables.",
   "main": "index.js",
   "dependencies": {
