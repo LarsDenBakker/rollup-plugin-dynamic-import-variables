@@ -88,6 +88,25 @@ test('complex concatenation', async (t) => {
   t.snapshot(output[0].code);
 });
 
+test('CallExpression', async (t) => {
+  const bundle = await rollup({
+    input: 'fixture-call-expression.js',
+    plugins: [dynamicImportVars()],
+  });
+  const { output } = await bundle.generate({ format: 'es' });
+  const expectedFiles = [
+    require.resolve('./fixtures/fixture-call-expression.js'),
+    require.resolve('./fixtures/module-dir-a/module-a-1.js'),
+    require.resolve('./fixtures/module-dir-a/module-a-2.js'),
+  ];
+
+  t.deepEqual(
+    expectedFiles,
+    output.map((o) => o.facadeModuleId)
+  );
+  t.snapshot(output[0].code);
+});
+
 test('own directory', async (t) => {
   const bundle = await rollup({
     input: 'fixture-own-dir.js',

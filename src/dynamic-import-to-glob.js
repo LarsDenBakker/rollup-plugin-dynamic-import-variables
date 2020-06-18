@@ -42,15 +42,11 @@ function expressionToGlob(node) {
       return templateLiteralToGlob(node);
     case 'BinaryExpression':
       return binaryExpressionToGlob(node);
-    case 'Identifier':
-      return '*';
     case 'Literal': {
       return sanitizeString(node.value);
     }
     default:
-      throw new VariableDynamicImportError(
-        `Unsupported expression, found node type ${node.type}.`
-      );
+      return '*';
   }
 }
 
