@@ -26,6 +26,14 @@ function templateLiteralToGlob(node) {
   return glob;
 }
 
+function callExpressionToGlob(node) {
+  const callee = node.callee;
+  if (callee.type === 'MemberExpression' && callee.property.type === 'Identifier' && callee.property.name === 'concat') {
+    return `${expressionToGlob(callee.object)}${node.arguments.map(expressionToGlob).join('')}`;
+  }
+  return '*';
+}
+
 function binaryExpressionToGlob(node) {
   if (node.operator !== '+') {
     throw new VariableDynamicImportError(
@@ -40,6 +48,8 @@ function expressionToGlob(node) {
   switch (node.type) {
     case 'TemplateLiteral':
       return templateLiteralToGlob(node);
+    case 'CallExpression':
+      return callExpressionToGlob(node);
     case 'BinaryExpression':
       return binaryExpressionToGlob(node);
     case 'Literal': {
